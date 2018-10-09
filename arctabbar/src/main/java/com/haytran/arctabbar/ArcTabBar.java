@@ -19,7 +19,7 @@ public class ArcTabBar extends View {
     private Paint mPrimaryCirclePaint;
     private Paint mSecondaryCirclePaint;
     private Circle mPrimaryCircle;
-    private Circle[] mSecondaryCircle;
+    private Circle[] mSecondaryCircles;
     private int mSecondaryCircleRadius = 32;
     private ArcTabBarListener listener;
 
@@ -67,15 +67,15 @@ public class ArcTabBar extends View {
         Circle secondCircle = getSecondaryCircle(270);
         Circle thirdCircle = getSecondaryCircle(288);
 
-        mSecondaryCircle = new Circle[3];
-        mSecondaryCircle[0] = firstCircle;
-        mSecondaryCircle[1] = secondCircle;
-        mSecondaryCircle[2] = thirdCircle;
+        mSecondaryCircles = new Circle[3];
+        mSecondaryCircles[0] = firstCircle;
+        mSecondaryCircles[1] = secondCircle;
+        mSecondaryCircles[2] = thirdCircle;
 
         drawCircle(canvas, mPrimaryCircle, mPrimaryCirclePaint);
-        drawCircle(canvas, mSecondaryCircle[0], mSecondaryCirclePaint);
-        drawCircle(canvas, mSecondaryCircle[1], mSecondaryCirclePaint);
-        drawCircle(canvas, mSecondaryCircle[2], mSecondaryCirclePaint);
+        drawCircle(canvas, mSecondaryCircles[0], mSecondaryCirclePaint);
+        drawCircle(canvas, mSecondaryCircles[1], mSecondaryCirclePaint);
+        drawCircle(canvas, mSecondaryCircles[2], mSecondaryCirclePaint);
     }
 
 
@@ -121,8 +121,8 @@ public class ArcTabBar extends View {
     }
 
     private int getClickedCircle(Point touchedPoint) {
-        for (int i = 0; i < mSecondaryCircle.length; i++) {
-            if (mSecondaryCircle[i].hasPoint(touchedPoint)) {
+        for (int i = 0; i < mSecondaryCircles.length; i++) {
+            if (mSecondaryCircles[i].hasPoint(touchedPoint)) {
                 return i;
             }
         }
