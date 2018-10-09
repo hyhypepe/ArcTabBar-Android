@@ -17,7 +17,7 @@ public class Circle {
         return new Point(x, y);
     }
 
-    boolean isInScope(Point forPoint) {
+    boolean hasPoint(Point forPoint) {
         if (point.calculateDistance(forPoint) < radius) {
             return true;
         } else {

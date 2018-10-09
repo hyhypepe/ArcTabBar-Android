@@ -122,7 +122,7 @@ public class ArcTabBar extends View {
 
     private int getClickedCircle(Point touchedPoint) {
         for (int i = 0; i < mSecondaryCircle.length; i++) {
-            if (mSecondaryCircle[i].isInScope(touchedPoint)) {
+            if (mSecondaryCircle[i].hasPoint(touchedPoint)) {
                 return i;
             }
         }
