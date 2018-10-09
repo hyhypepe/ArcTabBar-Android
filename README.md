@@ -1,4 +1,4 @@
-# ArcTabBar
+# ArcTabBar-Android
 
 <img src="demo.png" width="200">
 
@@ -7,7 +7,7 @@
 
 
 ## Questions & Issues :thinking:
-This repository's issue tracker is only for bugs and feature requests. The maintainers ask that you refrain from asking questions about how to use ArcTabBar through the issue tracker.
+This repository's issue tracker is only for bugs and feature requests. The maintainers ask that you refrain from asking questions about how to use ArcTabBar-Android through the issue tracker.
 
 <br/>
 
