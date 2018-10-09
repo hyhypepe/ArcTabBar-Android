@@ -3,7 +3,8 @@
 <img src="demo.png" width="200">
 
 ## Usage :chart_with_upwards_trend:
-- Just import all class in folder /arctabbar to your project and play.
+- Just import all class in folder /arctabbar/src/main/java/com/haytran/arctabbar/ to your project and play.
+
 
 ## Questions & Issues :thinking:
 This repository's issue tracker is only for bugs and feature requests. The maintainers ask that you refrain from asking questions about how to use ArcTabBar through the issue tracker.
