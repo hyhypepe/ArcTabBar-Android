@@ -1,4 +1,4 @@
-package com.haytran.arctabbar.ArcTabBar;
+package com.haytran.arctabbar;
 
 import android.content.res.Resources;
 import android.util.TypedValue;

@@ -1,4 +1,4 @@
-package com.haytran.arctabbar;
+package com.haytran.example;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

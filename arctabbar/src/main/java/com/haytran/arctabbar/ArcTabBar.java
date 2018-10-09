@@ -1,4 +1,4 @@
-package com.haytran.arctabbar.ArcTabBar;
+package com.haytran.arctabbar;
 
 import android.content.Context;
 import android.graphics.Canvas;

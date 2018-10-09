@@ -1,11 +1,12 @@
-package com.haytran.arctabbar;
+package com.haytran.example;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.haytran.arctabbar.ArcTabBar.ArcTabBar;
-import com.haytran.arctabbar.ArcTabBar.ArcTabBarListener;
+import com.haytran.arctabbar.ArcTabBar;
+import com.haytran.arctabbar.ArcTabBarListener;
+
 
 public class MainActivity extends AppCompatActivity {
 

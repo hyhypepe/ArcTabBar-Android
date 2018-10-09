@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.haytran.arctabbar.ArcTabBar.ArcTabBar
+    <com.haytran.arctabbar.ArcTabBar
         android:id="@+id/arcTabBar"
         android:layout_width="match_parent"
         android:layout_height="130dp"

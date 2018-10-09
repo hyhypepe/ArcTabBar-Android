@@ -1,4 +1,4 @@
-package com.haytran.arctabbar.ArcTabBar;
+package com.haytran.arctabbar;
 
 public class Point {
     private static final String TAG = "Point";

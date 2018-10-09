@@ -1,6 +1,4 @@
-package com.haytran.arctabbar.ArcTabBar;
-
-import android.util.Log;
+package com.haytran.arctabbar;
 
 public class Circle {
     private static final String TAG = "Circle";
