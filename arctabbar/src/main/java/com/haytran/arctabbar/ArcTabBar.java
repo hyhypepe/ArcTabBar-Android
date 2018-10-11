@@ -110,7 +110,7 @@ public class ArcTabBar extends View {
     }
 
     private Circle getSecondaryCircle(float degree) {
-        Point point = mPrimaryCircle.getPointInDegree(degree);
+        Point point = mPrimaryCircle.getPointInAngle(degree);
         float radius = ViewUtils.dp2px(getResources(), mSecondaryCircleRadius);
         return new Circle(point, radius);
     }

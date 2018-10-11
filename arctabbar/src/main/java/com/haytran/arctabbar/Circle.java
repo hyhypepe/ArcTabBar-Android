@@ -10,19 +10,31 @@ public class Circle {
         this.radius = radius;
     }
 
-    public Point getPointInDegree(float degree) {
+    public Point getPointInAngle(float degree) {
         double radian = Math.toRadians(degree);
         float x = point.cx + radius * (float) (Math.cos(radian));
         float y = point.cy + radius * (float) (Math.sin(radian));
         return new Point(x, y);
     }
 
-    boolean hasPoint(Point forPoint) {
+    public boolean hasPoint(Point forPoint) {
         if (point.calculateDistance(forPoint) < radius) {
             return true;
         } else {
             return false;
         }
+    }
+
+    public double getAngleFromX(float x) {
+        double radian = Math.acos(x / radius);
+        double degree = Math.toDegrees(radian);
+        return degree;
+    }
+
+    public double getAngleFromY(float y) {
+        double radian = Math.asin(y / radius);
+        double degree = Math.toDegrees(radian);
+        return degree;
     }
 
 }
