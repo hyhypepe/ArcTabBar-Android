@@ -9,6 +9,7 @@
         android:id="@+id/arcTabBar"
         android:layout_width="match_parent"
         android:layout_height="130dp"
+        app:numberOfSecondaryIcon="3"
         android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

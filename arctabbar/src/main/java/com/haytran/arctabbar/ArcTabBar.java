@@ -1,6 +1,7 @@
 package com.haytran.arctabbar;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -20,6 +21,7 @@ public class ArcTabBar extends View {
     private Paint mSecondaryCirclePaint;
     private Circle mPrimaryCircle;
     private Circle[] mSecondaryCircles;
+    private int mNumberOfSecondaryCircle;
     private int mSecondaryCircleRadius = 32;
     private ArcTabBarListener listener;
 
@@ -52,6 +54,12 @@ public class ArcTabBar extends View {
     }
 
     private void init(@Nullable AttributeSet set) {
+        if (set == null) {
+            return;
+        }
+        TypedArray ta = getContext().obtainStyledAttributes(set, R.styleable.ArcTabBar);
+        mNumberOfSecondaryCircle = ta.getInt(R.styleable.ArcTabBar_numberOfSecondaryIcon, 1);
+        Log.d(TAG, "init: mNumberOfSecondaryCircle = " + mNumberOfSecondaryCircle);
         mPrimaryCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPrimaryCirclePaint.setColor(Color.RED);
         mSecondaryCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -61,23 +69,58 @@ public class ArcTabBar extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        mPrimaryCircle = getPrimaryCircle();
-
-        Circle firstCircle = getSecondaryCircle(252);
-        Circle secondCircle = getSecondaryCircle(270);
-        Circle thirdCircle = getSecondaryCircle(288);
-
-        mSecondaryCircles = new Circle[3];
-        mSecondaryCircles[0] = firstCircle;
-        mSecondaryCircles[1] = secondCircle;
-        mSecondaryCircles[2] = thirdCircle;
-
+        mPrimaryCircle = getPrimaryCircle(mSecondaryCircleRadius);
         drawCircle(canvas, mPrimaryCircle, mPrimaryCirclePaint);
-        drawCircle(canvas, mSecondaryCircles[0], mSecondaryCirclePaint);
-        drawCircle(canvas, mSecondaryCircles[1], mSecondaryCirclePaint);
-        drawCircle(canvas, mSecondaryCircles[2], mSecondaryCirclePaint);
+
+        if (mNumberOfSecondaryCircle == 0) {
+            return;
+        }
+
+        mSecondaryCircles = getSecondaryCircles(mPrimaryCircle, mSecondaryCircleRadius, mNumberOfSecondaryCircle);
+        for (int i = 0; i < mNumberOfSecondaryCircle; i++) {
+            Log.d(TAG, "onDraw: mSecondaryCircles = " + mSecondaryCircles.length + ", mNumberOfSecondaryCircle = " +mNumberOfSecondaryCircle );
+            drawCircle(canvas, mSecondaryCircles[i], mSecondaryCirclePaint);
+        }
     }
 
+    private Circle[] getSecondaryCircles(Circle primaryCircle, int secondaryCircleRadius, int numberOfItems) {
+        if (numberOfItems <= 0) {
+            return null;
+        }
+        Circle[] secondaryCircles = new Circle[numberOfItems];
+        if (numberOfItems == 1) {
+            secondaryCircles[0] = getSecondaryCircleFromAngle(primaryCircle, secondaryCircleRadius, 270);
+            return secondaryCircles;
+        }
+        float pointXCrossScreen = getWidth() - primaryCircle.getCX();
+        double angleCrossScreen = primaryCircle.getAngleFromX(pointXCrossScreen);
+        double totalAngle = 180;
+        double leftAngle = totalAngle - angleCrossScreen * 2;
+        double anglePerItem = leftAngle / (numberOfItems - 1);
+        for (int i = 0; i < numberOfItems; i++) {
+            double angle = 180 + anglePerItem * (i + 1);
+            secondaryCircles[i] = getSecondaryCircleFromAngle(primaryCircle, secondaryCircleRadius, angle);
+        }
+        return secondaryCircles;
+    }
+
+    private Circle getPrimaryCircle(int secondaryCircleRadius) {
+        float x = getWidth() / 2;
+        float y = getWidth() + secondaryCircleRadius;
+        float radius = y - secondaryCircleRadius * 2;
+        Point point = new Point(x, y);
+        return new Circle(point, radius);
+    }
+
+    private Circle getSecondaryCircleFromAngle(Circle primaryCircle, int secondaryCircleRadius, double degree) {
+        Point point = primaryCircle.getPointInAngle(degree);
+        float radius = ViewUtils.dp2px(getResources(), secondaryCircleRadius);
+        return new Circle(point, radius);
+    }
+
+    private void drawCircle(Canvas canvas, Circle circle, Paint paint) {
+        canvas.drawCircle(circle.getCX(), circle.getCY(), circle.radius, paint);
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -101,25 +144,6 @@ public class ArcTabBar extends View {
         return true;
     }
 
-    private Circle getPrimaryCircle() {
-        float x = getWidth() / 2;
-        float y = getWidth() + mSecondaryCircleRadius;
-        float radius = y - mSecondaryCircleRadius*2;
-        Point point = new Point(x, y);
-        return new Circle(point, radius);
-    }
-
-    private Circle getSecondaryCircle(float degree) {
-        Point point = mPrimaryCircle.getPointInAngle(degree);
-        float radius = ViewUtils.dp2px(getResources(), mSecondaryCircleRadius);
-        return new Circle(point, radius);
-    }
-
-
-    private void drawCircle(Canvas canvas, Circle circle, Paint paint) {
-        canvas.drawCircle(circle.point.cx, circle.point.cy, circle.radius, paint);
-    }
-
     private int getClickedCircle(Point touchedPoint) {
         for (int i = 0; i < mSecondaryCircles.length; i++) {
             if (mSecondaryCircles[i].hasPoint(touchedPoint)) {
@@ -128,4 +152,6 @@ public class ArcTabBar extends View {
         }
         return -1;
     }
+
+
 }

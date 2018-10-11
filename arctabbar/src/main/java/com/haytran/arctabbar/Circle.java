@@ -10,7 +10,7 @@ public class Circle {
         this.radius = radius;
     }
 
-    public Point getPointInAngle(float degree) {
+    public Point getPointInAngle(double degree) {
         double radian = Math.toRadians(degree);
         float x = point.cx + radius * (float) (Math.cos(radian));
         float y = point.cy + radius * (float) (Math.sin(radian));
@@ -35,6 +35,14 @@ public class Circle {
         double radian = Math.asin(y / radius);
         double degree = Math.toDegrees(radian);
         return degree;
+    }
+
+    public float getCX() {
+        return point.cx;
+    }
+
+    public float getCY() {
+        return point.cy;
     }
 
 }
