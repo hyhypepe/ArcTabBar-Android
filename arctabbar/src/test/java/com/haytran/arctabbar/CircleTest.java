@@ -8,13 +8,13 @@ public class CircleTest {
 
     @Before
     public void setUp() {
-        Point cPoint = new Point(30, 30);
-        circle = new Circle(cPoint, 60);
+        Point cPoint = new Point(360, 784);
+        circle = new Circle(cPoint, 720);
     }
 
     @Test
     public void getDegreeFromX() {
-        double degree = circle.getAngleFromX(0);
+        double degree = circle.getAngleFromX(360);
         System.out.print("degree = " + degree);
     }
 

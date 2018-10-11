@@ -78,7 +78,6 @@ public class ArcTabBar extends View {
 
         mSecondaryCircles = getSecondaryCircles(mPrimaryCircle, mSecondaryCircleRadius, mNumberOfSecondaryCircle);
         for (int i = 0; i < mNumberOfSecondaryCircle; i++) {
-            Log.d(TAG, "onDraw: mSecondaryCircles = " + mSecondaryCircles.length + ", mNumberOfSecondaryCircle = " +mNumberOfSecondaryCircle );
             drawCircle(canvas, mSecondaryCircles[i], mSecondaryCirclePaint);
         }
     }
@@ -95,19 +94,20 @@ public class ArcTabBar extends View {
         float pointXCrossScreen = getWidth() - primaryCircle.getCX();
         double angleCrossScreen = primaryCircle.getAngleFromX(pointXCrossScreen);
         double totalAngle = 180;
-        double leftAngle = totalAngle - angleCrossScreen * 2;
-        double anglePerItem = leftAngle / (numberOfItems - 1);
+        double leftAngle = totalAngle - (angleCrossScreen * 2);
+        double anglePerItem = leftAngle / (numberOfItems + 1);
         for (int i = 0; i < numberOfItems; i++) {
-            double angle = 180 + anglePerItem * (i + 1);
+            double angle = 180 + angleCrossScreen + anglePerItem * (i + 1);
             secondaryCircles[i] = getSecondaryCircleFromAngle(primaryCircle, secondaryCircleRadius, angle);
         }
         return secondaryCircles;
     }
 
     private Circle getPrimaryCircle(int secondaryCircleRadius) {
+        float secondaryCircleRadiusDp = ViewUtils.dp2px(getResources(), secondaryCircleRadius);
         float x = getWidth() / 2;
-        float y = getWidth() + secondaryCircleRadius;
-        float radius = y - secondaryCircleRadius * 2;
+        float y = getWidth() + secondaryCircleRadiusDp;
+        float radius = getWidth();
         Point point = new Point(x, y);
         return new Circle(point, radius);
     }

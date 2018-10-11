@@ -45,4 +45,11 @@ public class Circle {
         return point.cy;
     }
 
+    @Override
+    public String toString() {
+        return "Circle{" +
+                "point=" + point +
+                ", radius=" + radius +
+                '}';
+    }
 }
