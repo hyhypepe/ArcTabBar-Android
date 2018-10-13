@@ -61,7 +61,7 @@ public class ArcTabBar extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        mPrimaryCircle = getPrimaryCircle();
+        mPrimaryCircle = getPrimaryCircle(mSecondaryCircleRadius);
 
         Circle firstCircle = getSecondaryCircle(252);
         Circle secondCircle = getSecondaryCircle(270);
@@ -101,13 +101,16 @@ public class ArcTabBar extends View {
         return true;
     }
 
-    private Circle getPrimaryCircle() {
+
+    private Circle getPrimaryCircle(int secondaryCircleRadius) {
+        float secondaryCircleRadiusDp = ViewUtils.dp2px(getResources(), secondaryCircleRadius);
         float x = getWidth() / 2;
-        float y = getWidth() + mSecondaryCircleRadius;
-        float radius = y - mSecondaryCircleRadius*2;
+        float y = getWidth() + secondaryCircleRadiusDp;
+        float radius = getWidth();
         Point point = new Point(x, y);
         return new Circle(point, radius);
     }
+
 
     private Circle getSecondaryCircle(float degree) {
         Point point = mPrimaryCircle.getPointInAngle(degree);
